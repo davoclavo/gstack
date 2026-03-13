@@ -18,37 +18,17 @@ allowed-tools:
 Persistent headless Chromium daemon. First call auto-starts the server (~3s).
 Every subsequent call: ~100-200ms. Auto-shuts down after 30 min idle.
 
-## SETUP (run this check BEFORE any browse command)
+## SETUP
 
-Before using any browse command, find the skill and check if the binary exists:
+The browse CLI is the TypeScript file at `src/cli.ts` in this skill's directory.
+Run all browse commands with `bun run <this-skill-dir>/src/cli.ts <command> <args>`.
 
-```bash
-# Check project-level first, then user-level
-if test -x .claude/skills/gstack/browse/dist/browse; then
-  echo "READY_PROJECT"
-elif test -x ~/.claude/skills/gstack/browse/dist/browse; then
-  echo "READY_USER"
-else
-  echo "NEEDS_SETUP"
-fi
-```
+On first use, if the command fails with missing modules, run `bun install` in the gstack root directory (this skill's parent directory, where `package.json` lives).
 
-Set `B` to whichever path is READY and use it for all commands. Prefer project-level if both exist.
-
-If `NEEDS_SETUP`:
-1. Tell the user: "gstack browse needs a one-time build (~10 seconds). OK to proceed?" Then STOP and wait for their response.
-2. If they approve, determine the skill directory (project-level `.claude/skills/gstack` or user-level `~/.claude/skills/gstack`) and run:
-```bash
-cd <SKILL_DIR> && ./setup
-```
-3. If `bun` is not installed, tell the user to install it: `curl -fsSL https://bun.sh/install | bash`
-4. Verify the `.gitignore` in the skill directory contains `browse/dist/` and `node_modules/`. If either line is missing, add it.
-
-Once setup is done, it never needs to run again (the compiled binary persists).
+If `bun` is not installed, tell the user to install it: `curl -fsSL https://bun.sh/install | bash`
 
 ## IMPORTANT
 
-- Use the compiled binary via Bash: `.claude/skills/gstack/browse/dist/browse` (project) or `~/.claude/skills/gstack/browse/dist/browse` (user).
 - NEVER use `mcp__claude-in-chrome__*` tools. They are slow and unreliable.
 - The browser persists between calls — cookies, tabs, and state carry over.
 - The server auto-starts on first command. No setup needed.
@@ -56,7 +36,7 @@ Once setup is done, it never needs to run again (the compiled binary persists).
 ## Quick Reference
 
 ```bash
-B=~/.claude/skills/gstack/browse/dist/browse
+B="bun run <this-skill-dir>/src/cli.ts"
 
 # Navigate to a page
 $B goto https://example.com

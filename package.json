@@ -4,11 +4,8 @@
   "description": "Garry's Stack — Claude Code skills + fast headless browser. One repo, one install, entire AI engineering workflow.",
   "license": "MIT",
   "type": "module",
-  "bin": {
-    "browse": "./browse/dist/browse"
-  },
   "scripts": {
-    "build": "bun build --compile browse/src/cli.ts --outfile browse/dist/browse",
+    "browse": "bun run browse/src/cli.ts",
     "dev": "bun run browse/src/cli.ts",
     "server": "bun run browse/src/server.ts",
     "test": "bun test",

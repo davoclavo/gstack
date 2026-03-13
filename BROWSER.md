@@ -199,16 +199,6 @@ Tests spin up a local HTTP server (`browse/test/test-server.ts`) serving HTML fi
 | `browse/src/meta-commands.ts` | Server management: `status`, `stop`, `restart`. |
 | `browse/src/buffers.ts` | In-memory + disk capture for console and network logs. |
 
-### Deploying to the active skill
-
-The active skill lives at `~/.claude/skills/gstack/`. After making changes:
-
-1. Push your branch
-2. Pull in the skill directory: `cd ~/.claude/skills/gstack && git pull`
-3. Rebuild: `cd ~/.claude/skills/gstack && bun run build`
-
-Or copy the binary directly: `cp browse/dist/browse ~/.claude/skills/gstack/browse/dist/browse`
-
 ### Adding a new command
 
 1. Add the handler in `read-commands.ts` (non-mutating) or `write-commands.ts` (mutating)
